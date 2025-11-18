@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 ================================================================================
-MEDICAL PRESCRIPTION ANALYZER - COMPLETE ALL-IN-ONE APPLICATION
+MEDICAL PRESCRIPTION ANALYZER - COMPLETE ALL-IN-ONE APPLICATION WITH DOSAGE
 ================================================================================
 
 DISCLAIMER: Educational purposes only - NOT for clinical use
@@ -12,24 +12,23 @@ INSTALLATION INSTRUCTIONS
 ================================================================================
 
 Step 1: Install Python Dependencies
-    pip install streamlit pillow pytesseract
+    pip install streamlit pillow pytesseract opencv-python numpy
 
-Step 2: Install Tesseract OCR
+Step 2: Install Tesseract OCR (Already installed - good!)
 
+    Verify installation:
+    tesseract --version
+
+    If needed:
     WINDOWS:
     - Download: https://github.com/UB-Mannheim/tesseract/wiki
     - Run installer (default path: C:\Program Files\Tesseract-OCR)
-    - Done! App will auto-detect
 
     MAC:
     brew install tesseract
 
     LINUX (Ubuntu/Debian):
-    sudo apt-get update
     sudo apt-get install tesseract-ocr
-
-    LINUX (Fedora/RHEL):
-    sudo yum install tesseract
 
 Step 3: Run the Application
     streamlit run prescription_analyzer.py
@@ -43,10 +42,12 @@ FEATURES & USAGE
 
 📸 PRESCRIPTION OCR TAB:
     1. Upload a handwritten prescription image OR use camera
-    2. Click "🔍 Analyze"
-    3. System extracts ALL drugs from handwriting
-    4. Shows dosages, frequencies, interactions
-    5. Displays alternatives if conflicts exist
+    2. Enter patient age
+    3. Click "🔍 Analyze Prescription"
+    4. System extracts ALL drugs from handwriting
+    5. Shows dosages, frequencies, interactions
+    6. Displays age-appropriate mg/kg dosage recommendations with warnings
+    7. Shows alternatives if conflicts exist
 
 🔍 INTERACTION CHECKER TAB:
     1. Enter multiple drug names (comma/line separated)
@@ -56,130 +57,14 @@ FEATURES & USAGE
 📏 DOSAGE INFO TAB:
     1. Select any drug from dropdown
     2. Enter patient age
-    3. View drug information and alternatives
+    3. View mg/kg dosage recommendations and warnings
+    4. See drug information and alternatives
 
 🏥 SAFETY CHECK TAB:
     1. Select patient's medical conditions
     2. Enter medications
     3. Click "Check Safety"
     4. See contraindications and warnings
-
-================================================================================
-DATABASE CONTENTS (150+ MEDICATIONS)
-================================================================================
-
-✅ ANTIBIOTICS (10):
-   Amoxicillin, Azithromycin, Ciprofloxacin, Levofloxacin, Doxycycline,
-   Cephalexin, Metronidazole, Clindamycin, Ceftriaxone, 
-   Amoxicillin-Clavulanic Acid
-
-✅ PAINKILLERS/NSAIDs (11):
-   Paracetamol, Acetaminophen, Ibuprofen, Diclofenac, Naproxen, Aspirin,
-   Tramadol, Ketorolac, Celecoxib, Etoricoxib, Morphine
-
-✅ ANTI-ALLERGY/ANTIHISTAMINES (6):
-   Cetirizine, Loratadine, Fexofenadine, Diphenhydramine, Levocetirizine,
-   Chlorpheniramine Maleate
-
-✅ ANTI-DIABETIC (7):
-   Metformin, Glimepiride, Sitagliptin, Dapagliflozin, Pioglitazone,
-   Insulin Regular, Insulin Glargine
-
-✅ CARDIOVASCULAR (14):
-   Atorvastatin, Rosuvastatin, Clopidogrel, Metoprolol, Atenolol,
-   Amlodipine, Losartan, Telmisartan, Enalapril, Ramipril, Carvedilol,
-   Hydrochlorothiazide, Furosemide, Spironolactone
-
-✅ GASTROINTESTINAL (8):
-   Omeprazole, Pantoprazole, Rabeprazole, Esomeprazole, Ranitidine,
-   Domperidone, Ondansetron, Loperamide
-
-✅ PSYCHIATRIC/NEUROLOGICAL (15):
-   Sertraline, Fluoxetine, Escitalopram, Paroxetine, Alprazolam, Diazepam,
-   Lorazepam, Amitriptyline, Olanzapine, Risperidone, Quetiapine,
-   Haloperidol, Gabapentin, Pregabalin, Donepezil
-
-✅ RESPIRATORY (7):
-   Montelukast, Salbutamol, Budesonide, Formoterol, Theophylline,
-   Dextromethorphan, Ipratropium
-
-✅ VITAMINS & SUPPLEMENTS (6):
-   Vitamin D3, Vitamin B12, Folic Acid, Calcium Carbonate, Iron-Folic Acid,
-   Multivitamin
-
-✅ ANTIFUNGALS (4):
-   Fluconazole, Itraconazole, Ketoconazole, Clotrimazole
-
-✅ STEROIDS (3):
-   Prednisolone, Dexamethasone, Hydrocortisone
-
-✅ ANTIVIRALS (4):
-   Acyclovir, Oseltamivir, Tenofovir, Remdesivir
-
-✅ OTHERS - GENERAL USE (7):
-   Levothyroxine, Tamsulosin, Finasteride, Sildenafil, Misoprostol,
-   Tranexamic Acid, Warfarin
-
-================================================================================
-INTERACTION DATABASE
-================================================================================
-
-100+ CRITICAL DRUG-DRUG INTERACTIONS MAPPED
-
-🔴 HIGH SEVERITY (35+):
-   - Aspirin + Ibuprofen → GI bleeding risk
-   - Warfarin + Aspirin → Severe bleeding
-   - Ciprofloxacin + Theophylline → Toxicity
-   - Metformin + Contrast Dye → Lactic acidosis
-   ... and many more
-
-🟡 MODERATE SEVERITY (65+):
-   - Metformin + Prednisolone → Poor glucose control
-   - Omeprazole + Clopidogrel → Reduced effect
-   ... and many more
-
-================================================================================
-TROUBLESHOOTING
-================================================================================
-
-❌ "Tesseract not found" or "pytesseract module not found"
-   → Install: pip install pytesseract
-   → Download Tesseract: https://github.com/UB-Mannheim/tesseract/wiki
-   → Verify: tesseract --version
-
-❌ "OCR returns empty or wrong results"
-   → Ensure image is clear and well-lit
-   → Handwriting should be legible (not cursive)
-   → Try different angle/lighting
-   → Image should be at least 300 DPI
-
-❌ "Drug not recognized"
-   → Check spelling (case-insensitive)
-   → Verify drug is in database (150+ total)
-   → Check for spacing issues
-
-❌ "Streamlit not found"
-   → Install: pip install streamlit
-
-❌ "ImportError for PIL"
-   → Install: pip install pillow
-
-❌ "Camera not working"
-   → Try different browser (Chrome/Firefox)
-   → Enable camera permissions
-   → Use on mobile device for better support
-
-================================================================================
-QUICK COMMANDS
-================================================================================
-
-Check Python:           python --version
-Check pip:             pip --version
-Install deps:          pip install streamlit pillow pytesseract
-Verify Tesseract:      tesseract --version
-Run app:               streamlit run prescription_analyzer.py
-Clear cache:           streamlit cache clear
-Stop app:              Ctrl + C
 
 ================================================================================
 END OF DOCUMENTATION - CODE STARTS BELOW
@@ -190,6 +75,7 @@ import streamlit as st
 import re
 from PIL import Image, ImageEnhance, ImageFilter
 import numpy as np
+import cv2
 
 try:
     import pytesseract
@@ -448,42 +334,610 @@ CONDITIONS = {
 }
 
 # ============================================================================
-# OCR FUNCTIONS
+# COMPREHENSIVE DOSAGE GUIDELINES FOR ALL 150 DRUGS
 # ============================================================================
 
-def preprocess_image_advanced(img: Image.Image) -> Image.Image:
-    """Advanced preprocessing for handwriting OCR"""
-    img = img.convert('L')
-    contrast = ImageEnhance.Contrast(img)
-    img = contrast.enhance(3.0)
-    brightness = ImageEnhance.Brightness(img)
-    img = brightness.enhance(1.1)
-    sharpness = ImageEnhance.Sharpness(img)
-    img = sharpness.enhance(2.5)
+DOSAGES = {
+    # ANTIBIOTICS
+    "amoxicillin": {
+        "child": {"dose": "20-40 mg/kg/day", "max": "90 mg/kg/day", "warning": "Divide into 2-3 doses, use under pediatric supervision"},
+        "adult": {"dose": "250-500 mg every 8 hours", "max": "3000 mg/day", "warning": "Take with food to reduce GI upset"},
+        "elderly": {"dose": "250-500 mg every 12 hours", "max": "3000 mg/day", "warning": "Monitor renal function, adjust if CrCl <30"}
+    },
+    "azithromycin": {
+        "child": {"dose": "10 mg/kg on day 1, then 5 mg/kg", "max": "500 mg/day", "warning": "Single daily dose, complete course"},
+        "adult": {"dose": "500 mg day 1, then 250 mg", "max": "500 mg/day", "warning": "Take on empty stomach"},
+        "elderly": {"dose": "500 mg day 1, then 250 mg", "max": "500 mg/day", "warning": "Check for QT prolongation risk"}
+    },
+    "ciprofloxacin": {
+        "child": {"dose": "Not recommended under 18", "max": "N/A", "warning": "Risk of tendon damage, use only if essential"},
+        "adult": {"dose": "250-750 mg every 12 hours", "max": "1500 mg/day", "warning": "Avoid in pregnancy, risk of tendonitis"},
+        "elderly": {"dose": "250-500 mg every 12 hours", "max": "1000 mg/day", "warning": "Higher risk of tendon rupture"}
+    },
+    "levofloxacin": {
+        "child": {"dose": "Not recommended", "max": "N/A", "warning": "Use only if no alternative"},
+        "adult": {"dose": "250-750 mg once daily", "max": "750 mg/day", "warning": "Take with plenty of water"},
+        "elderly": {"dose": "250-500 mg once daily", "max": "500 mg/day", "warning": "Adjust for renal function"}
+    },
+    "doxycycline": {
+        "child": {"dose": "2-4 mg/kg/day", "max": "200 mg/day", "warning": "Avoid under 8 years, tooth discoloration risk"},
+        "adult": {"dose": "100 mg every 12 hours", "max": "200 mg/day", "warning": "Take with food, avoid dairy within 2 hours"},
+        "elderly": {"dose": "100 mg every 12-24 hours", "max": "200 mg/day", "warning": "Photosensitivity - use sunscreen"}
+    },
+    "cephalexin": {
+        "child": {"dose": "25-50 mg/kg/day", "max": "100 mg/kg/day", "warning": "Divide into 4 doses"},
+        "adult": {"dose": "250-500 mg every 6 hours", "max": "4000 mg/day", "warning": "Take with or without food"},
+        "elderly": {"dose": "250-500 mg every 8 hours", "max": "3000 mg/day", "warning": "Adjust for renal impairment"}
+    },
+    "metronidazole": {
+        "child": {"dose": "15-35 mg/kg/day", "max": "2000 mg/day", "warning": "Divide into 3 doses"},
+        "adult": {"dose": "250-500 mg every 8 hours", "max": "4000 mg/day", "warning": "Avoid alcohol - disulfiram reaction"},
+        "elderly": {"dose": "250-500 mg every 12 hours", "max": "2000 mg/day", "warning": "Reduce dose in hepatic disease"}
+    },
+    "clindamycin": {
+        "child": {"dose": "10-25 mg/kg/day", "max": "40 mg/kg/day", "warning": "Divide into 3-4 doses"},
+        "adult": {"dose": "150-450 mg every 6 hours", "max": "1800 mg/day", "warning": "Risk of C. difficile diarrhea"},
+        "elderly": {"dose": "150-300 mg every 8 hours", "max": "1200 mg/day", "warning": "Monitor for diarrhea"}
+    },
+    "ceftriaxone": {
+        "child": {"dose": "50-75 mg/kg/day", "max": "2000 mg/day", "warning": "Single daily dose or divided every 12h"},
+        "adult": {"dose": "1-2 g once daily", "max": "4 g/day", "warning": "IM or IV administration"},
+        "elderly": {"dose": "1 g once daily", "max": "2 g/day", "warning": "No dose adjustment for renal impairment"}
+    },
+    "amoxicillin-clavulanic acid": {
+        "child": {"dose": "25-45 mg/kg/day", "max": "90 mg/kg/day", "warning": "Based on amoxicillin component"},
+        "adult": {"dose": "500-875 mg every 12 hours", "max": "2000 mg/day", "warning": "Take with food"},
+        "elderly": {"dose": "500 mg every 12 hours", "max": "1500 mg/day", "warning": "Monitor liver function"}
+    },
     
-    w, h = img.size
-    if w < 1024:
-        new_w = 2400
-        new_h = int(h * (new_w / w))
-        img = img.resize((new_w, new_h), Image.Resampling.LANCZOS)
+    # PAINKILLERS / NSAIDs
+    "paracetamol": {
+        "child": {"dose": "10-15 mg/kg/dose", "max": "60 mg/kg/day", "warning": "Every 4-6 hours, hepatotoxicity risk if overdose"},
+        "adult": {"dose": "500-1000 mg every 4-6 hours", "max": "4000 mg/day", "warning": "Do not exceed max dose - liver damage"},
+        "elderly": {"dose": "500 mg every 6 hours", "max": "3000 mg/day", "warning": "Monitor liver function"}
+    },
+    "acetaminophen": {
+        "child": {"dose": "10-15 mg/kg/dose", "max": "60 mg/kg/day", "warning": "Every 4-6 hours, hepatotoxicity risk if overdose"},
+        "adult": {"dose": "500-1000 mg every 4-6 hours", "max": "4000 mg/day", "warning": "Do not exceed max dose - liver damage"},
+        "elderly": {"dose": "500 mg every 6 hours", "max": "3000 mg/day", "warning": "Monitor liver function"}
+    },
+    "ibuprofen": {
+        "child": {"dose": "5-10 mg/kg/dose", "max": "40 mg/kg/day", "warning": "Every 6-8 hours with food"},
+        "adult": {"dose": "200-400 mg every 6-8 hours", "max": "3200 mg/day", "warning": "Take with food, GI and kidney risk"},
+        "elderly": {"dose": "200 mg every 8-12 hours", "max": "1600 mg/day", "warning": "Increased GI bleeding risk"}
+    },
+    "diclofenac": {
+        "child": {"dose": "1-3 mg/kg/day", "max": "150 mg/day", "warning": "Divide into 2-3 doses"},
+        "adult": {"dose": "50 mg every 8-12 hours", "max": "150 mg/day", "warning": "Take with food, cardiovascular risk"},
+        "elderly": {"dose": "25-50 mg every 12 hours", "max": "100 mg/day", "warning": "High GI bleed risk, use lowest dose"}
+    },
+    "naproxen": {
+        "child": {"dose": "5-7 mg/kg every 12 hours", "max": "1000 mg/day", "warning": "Over 2 years old"},
+        "adult": {"dose": "250-500 mg every 12 hours", "max": "1250 mg/day", "warning": "Take with food"},
+        "elderly": {"dose": "250 mg every 12 hours", "max": "750 mg/day", "warning": "GI and cardiovascular risk"}
+    },
+    "aspirin": {
+        "child": {"dose": "10-15 mg/kg/dose", "max": "81 mg/day", "warning": "Avoid under 12 - Reye's syndrome risk"},
+        "adult": {"dose": "325-650 mg every 4-6 hours", "max": "4000 mg/day", "warning": "Take with food, bleeding risk"},
+        "elderly": {"dose": "81-325 mg once daily", "max": "650 mg/day", "warning": "GI bleeding, use low dose for cardioprotection"}
+    },
+    "tramadol": {
+        "child": {"dose": "1-2 mg/kg every 6 hours", "max": "400 mg/day", "warning": "Over 12 years, seizure risk"},
+        "adult": {"dose": "50-100 mg every 4-6 hours", "max": "400 mg/day", "warning": "Risk of dependence, serotonin syndrome"},
+        "elderly": {"dose": "50 mg every 6-8 hours", "max": "300 mg/day", "warning": "Start low, titrate slowly"}
+    },
+    "ketorolac": {
+        "child": {"dose": "Not recommended", "max": "N/A", "warning": "Use only if essential, short-term"},
+        "adult": {"dose": "10 mg every 4-6 hours", "max": "40 mg/day", "warning": "Maximum 5 days, high GI/renal risk"},
+        "elderly": {"dose": "10 mg every 6-8 hours", "max": "40 mg/day", "warning": "Avoid if possible, severe adverse effects"}
+    },
+    "celecoxib": {
+        "child": {"dose": "Not established", "max": "N/A", "warning": "Consult specialist"},
+        "adult": {"dose": "100-200 mg once or twice daily", "max": "400 mg/day", "warning": "Cardiovascular risk, use lowest dose"},
+        "elderly": {"dose": "100 mg once daily", "max": "200 mg/day", "warning": "Reduced GI risk vs traditional NSAIDs"}
+    },
+    "etoricoxib": {
+        "child": {"dose": "Not recommended", "max": "N/A", "warning": "Not approved for pediatric use"},
+        "adult": {"dose": "60-120 mg once daily", "max": "120 mg/day", "warning": "Cardiovascular risk, short-term use"},
+        "elderly": {"dose": "60 mg once daily", "max": "90 mg/day", "warning": "Monitor blood pressure"}
+    },
+    "morphine": {
+        "child": {"dose": "0.1-0.2 mg/kg every 4 hours", "max": "0.6 mg/kg/day", "warning": "Respiratory depression, close monitoring"},
+        "adult": {"dose": "10-30 mg every 4 hours", "max": "200 mg/day", "warning": "Risk of dependence, respiratory depression"},
+        "elderly": {"dose": "5-10 mg every 4-6 hours", "max": "60 mg/day", "warning": "Start low, high risk of adverse effects"}
+    },
     
-    return img
+    # ANTIHISTAMINES
+    "cetirizine": {
+        "child": {"dose": "0.25 mg/kg once daily", "max": "10 mg/day", "warning": "Over 2 years, may cause drowsiness"},
+        "adult": {"dose": "5-10 mg once daily", "max": "10 mg/day", "warning": "Non-drowsy in most, take evening if drowsy"},
+        "elderly": {"dose": "5 mg once daily", "max": "10 mg/day", "warning": "Reduce dose in renal impairment"}
+    },
+    "loratadine": {
+        "child": {"dose": "5 mg once daily (<30 kg)", "max": "10 mg/day", "warning": "Over 2 years"},
+        "adult": {"dose": "10 mg once daily", "max": "10 mg/day", "warning": "Non-sedating, safe profile"},
+        "elderly": {"dose": "10 mg once daily", "max": "10 mg/day", "warning": "No dose adjustment needed"}
+    },
+    "fexofenadine": {
+        "child": {"dose": "30 mg twice daily", "max": "120 mg/day", "warning": "Over 6 years"},
+        "adult": {"dose": "120-180 mg once daily", "max": "180 mg/day", "warning": "Take with water, not juice"},
+        "elderly": {"dose": "120 mg once daily", "max": "180 mg/day", "warning": "No adjustment needed"}
+    },
+    "diphenhydramine": {
+        "child": {"dose": "1-2 mg/kg every 6 hours", "max": "300 mg/day", "warning": "Over 2 years, causes drowsiness"},
+        "adult": {"dose": "25-50 mg every 4-6 hours", "max": "300 mg/day", "warning": "Sedating, avoid driving"},
+        "elderly": {"dose": "25 mg every 6-8 hours", "max": "150 mg/day", "warning": "Avoid - anticholinergic effects"}
+    },
+    "levocetirizine": {
+        "child": {"dose": "2.5 mg once daily", "max": "5 mg/day", "warning": "Over 6 months"},
+        "adult": {"dose": "5 mg once daily", "max": "5 mg/day", "warning": "Evening dosing if drowsiness"},
+        "elderly": {"dose": "2.5-5 mg once daily", "max": "5 mg/day", "warning": "Adjust for renal function"}
+    },
+    "chlorpheniramine maleate": {
+        "child": {"dose": "0.35 mg/kg/day divided", "max": "12 mg/day", "warning": "Every 4-6 hours, sedating"},
+        "adult": {"dose": "4 mg every 4-6 hours", "max": "24 mg/day", "warning": "Drowsiness common"},
+        "elderly": {"dose": "2-4 mg every 6-8 hours", "max": "16 mg/day", "warning": "Avoid - anticholinergic effects"}
+    },
+    
+    # ANTI-DIABETIC
+    "metformin": {
+        "child": {"dose": "500 mg twice daily", "max": "2000 mg/day", "warning": "Over 10 years, titrate slowly"},
+        "adult": {"dose": "500-1000 mg twice daily", "max": "2550 mg/day", "warning": "Start low, with meals, GI side effects common"},
+        "elderly": {"dose": "500 mg once-twice daily", "max": "2000 mg/day", "warning": "Check renal function, avoid if CrCl <30"}
+    },
+    "glimepiride": {
+        "child": {"dose": "Not recommended", "max": "N/A", "warning": "Not approved for pediatric use"},
+        "adult": {"dose": "1-2 mg once daily", "max": "8 mg/day", "warning": "Take with breakfast, hypoglycemia risk"},
+        "elderly": {"dose": "1 mg once daily", "max": "4 mg/day", "warning": "Start low, monitor blood sugar closely"}
+    },
+    "sitagliptin": {
+        "child": {"dose": "Not established", "max": "N/A", "warning": "Consult specialist"},
+        "adult": {"dose": "100 mg once daily", "max": "100 mg/day", "warning": "Adjust for renal impairment"},
+        "elderly": {"dose": "100 mg once daily", "max": "100 mg/day", "warning": "No adjustment if normal renal function"}
+    },
+    "dapagliflozin": {
+        "child": {"dose": "Not recommended", "max": "N/A", "warning": "Not approved"},
+        "adult": {"dose": "5-10 mg once daily", "max": "10 mg/day", "warning": "UTI risk, monitor hydration"},
+        "elderly": {"dose": "5 mg once daily", "max": "10 mg/day", "warning": "Dehydration risk, monitor closely"}
+    },
+    "pioglitazone": {
+        "child": {"dose": "Not recommended", "max": "N/A", "warning": "Not approved"},
+        "adult": {"dose": "15-30 mg once daily", "max": "45 mg/day", "warning": "Fluid retention, heart failure risk"},
+        "elderly": {"dose": "15 mg once daily", "max": "30 mg/day", "warning": "Monitor for edema"}
+    },
+    "insulin regular": {
+        "child": {"dose": "0.5-1 unit/kg/day", "max": "Individualized", "warning": "Divide into multiple doses, tight monitoring"},
+        "adult": {"dose": "0.5-1 unit/kg/day", "max": "Individualized", "warning": "Individualized based on blood sugar"},
+        "elderly": {"dose": "0.2-0.6 unit/kg/day", "max": "Individualized", "warning": "Start low, hypoglycemia risk"}
+    },
+    "insulin glargine": {
+        "child": {"dose": "0.1-0.2 units/kg/day", "max": "Individualized", "warning": "Once daily, long-acting basal insulin"},
+        "adult": {"dose": "0.2-0.4 units/kg/day", "max": "Individualized", "warning": "Once daily, same time each day"},
+        "elderly": {"dose": "0.1-0.3 units/kg/day", "max": "Individualized", "warning": "Lower starting dose"}
+    },
+    
+    # CARDIOVASCULAR
+    "atorvastatin": {
+        "child": {"dose": "10 mg once daily", "max": "20 mg/day", "warning": "Over 10 years, monitor liver"},
+        "adult": {"dose": "10-80 mg once daily", "max": "80 mg/day", "warning": "Evening dosing, monitor CK and liver"},
+        "elderly": {"dose": "10-40 mg once daily", "max": "80 mg/day", "warning": "Start low, muscle pain risk"}
+    },
+    "rosuvastatin": {
+        "child": {"dose": "5-10 mg once daily", "max": "20 mg/day", "warning": "Over 10 years"},
+        "adult": {"dose": "5-40 mg once daily", "max": "40 mg/day", "warning": "Most potent statin, monitor CK"},
+        "elderly": {"dose": "5-10 mg once daily", "max": "20 mg/day", "warning": "Higher risk of myopathy"}
+    },
+    "clopidogrel": {
+        "child": {"dose": "Not established", "max": "N/A", "warning": "Consult specialist"},
+        "adult": {"dose": "75 mg once daily", "max": "75 mg/day", "warning": "Bleeding risk, avoid with omeprazole"},
+        "elderly": {"dose": "75 mg once daily", "max": "75 mg/day", "warning": "No adjustment, monitor bleeding"}
+    },
+    "metoprolol": {
+        "child": {"dose": "1-2 mg/kg/day divided", "max": "200 mg/day", "warning": "Titrate slowly"},
+        "adult": {"dose": "25-100 mg twice daily", "max": "400 mg/day", "warning": "Do not stop abruptly"},
+        "elderly": {"dose": "25-50 mg twice daily", "max": "200 mg/day", "warning": "Start low, bradycardia risk"}
+    },
+    "atenolol": {
+        "child": {"dose": "0.5-1 mg/kg once daily", "max": "100 mg/day", "warning": "Over 6 years"},
+        "adult": {"dose": "25-100 mg once daily", "max": "200 mg/day", "warning": "Reduce in renal impairment"},
+        "elderly": {"dose": "25-50 mg once daily", "max": "100 mg/day", "warning": "Check renal function"}
+    },
+    "amlodipine": {
+        "child": {"dose": "2.5-5 mg once daily", "max": "10 mg/day", "warning": "Over 6 years"},
+        "adult": {"dose": "5-10 mg once daily", "max": "10 mg/day", "warning": "Ankle edema common"},
+        "elderly": {"dose": "2.5-5 mg once daily", "max": "10 mg/day", "warning": "Start low"}
+    },
+    "losartan": {
+        "child": {"dose": "0.7 mg/kg once daily", "max": "50 mg/day", "warning": "Over 6 years"},
+        "adult": {"dose": "25-100 mg once daily", "max": "100 mg/day", "warning": "Monitor potassium and renal function"},
+        "elderly": {"dose": "25-50 mg once daily", "max": "100 mg/day", "warning": "Start low"}
+    },
+    "telmisartan": {
+        "child": {"dose": "Not established", "max": "N/A", "warning": "Consult specialist"},
+        "adult": {"dose": "20-80 mg once daily", "max": "80 mg/day", "warning": "Monitor BP and renal function"},
+        "elderly": {"dose": "20-40 mg once daily", "max": "80 mg/day", "warning": "No adjustment usually needed"}
+    },
+    "enalapril": {
+        "child": {"dose": "0.08 mg/kg once daily", "max": "0.6 mg/kg/day", "warning": "Titrate slowly"},
+        "adult": {"dose": "2.5-20 mg once-twice daily", "max": "40 mg/day", "warning": "Monitor potassium, first-dose hypotension"},
+        "elderly": {"dose": "2.5-5 mg once daily", "max": "20 mg/day", "warning": "Start low, check renal function"}
+    },
+    "ramipril": {
+        "child": {"dose": "Not established", "max": "N/A", "warning": "Consult specialist"},
+        "adult": {"dose": "2.5-10 mg once daily", "max": "10 mg/day", "warning": "Monitor potassium and creatinine"},
+        "elderly": {"dose": "1.25-2.5 mg once daily", "max": "10 mg/day", "warning": "Start low, titrate slowly"}
+    },
+    "carvedilol": {
+        "child": {"dose": "Not established", "max": "N/A", "warning": "Consult specialist"},
+        "adult": {"dose": "3.125-25 mg twice daily", "max": "50 mg/day", "warning": "Take with food, titrate slowly"},
+        "elderly": {"dose": "3.125-12.5 mg twice daily", "max": "50 mg/day", "warning": "Start very low"}
+    },
+    "hydrochlorothiazide": {
+        "child": {"dose": "1-2 mg/kg/day", "max": "37.5 mg/day", "warning": "Divide into 1-2 doses"},
+        "adult": {"dose": "12.5-25 mg once daily", "max": "50 mg/day", "warning": "Monitor potassium and glucose"},
+        "elderly": {"dose": "12.5 mg once daily", "max": "25 mg/day", "warning": "Dehydration risk, monitor electrolytes"}
+    },
+    "furosemide": {
+        "child": {"dose": "1-2 mg/kg/dose", "max": "6 mg/kg/day", "warning": "Every 6-12 hours"},
+        "adult": {"dose": "20-80 mg once-twice daily", "max": "600 mg/day", "warning": "Monitor potassium, dehydration risk"},
+        "elderly": {"dose": "20-40 mg once daily", "max": "240 mg/day", "warning": "Start low, falls risk"}
+    },
+    "spironolactone": {
+        "child": {"dose": "1-3 mg/kg/day", "max": "100 mg/day", "warning": "Divide into 1-2 doses"},
+        "adult": {"dose": "25-100 mg once daily", "max": "400 mg/day", "warning": "Monitor potassium - hyperkalemia risk"},
+        "elderly": {"dose": "25-50 mg once daily", "max": "100 mg/day", "warning": "High hyperkalemia risk"}
+    },
+    
+    # GASTROINTESTINAL
+    "omeprazole": {
+        "child": {"dose": "0.5-1 mg/kg once daily", "max": "40 mg/day", "warning": "Over 1 year"},
+        "adult": {"dose": "20-40 mg once daily", "max": "80 mg/day", "warning": "Take before breakfast, long-term risks"},
+        "elderly": {"dose": "20 mg once daily", "max": "40 mg/day", "warning": "Fracture risk with long-term use"}
+    },
+    "pantoprazole": {
+        "child": {"dose": "0.5-1 mg/kg once daily", "max": "40 mg/day", "warning": "Over 5 years"},
+        "adult": {"dose": "20-40 mg once daily", "max": "80 mg/day", "warning": "Take 30 min before meal"},
+        "elderly": {"dose": "20-40 mg once daily", "max": "40 mg/day", "warning": "No adjustment needed"}
+    },
+    "rabeprazole": {
+        "child": {"dose": "Not established", "max": "N/A", "warning": "Limited data"},
+        "adult": {"dose": "20 mg once daily", "max": "40 mg/day", "warning": "Take before meal"},
+        "elderly": {"dose": "20 mg once daily", "max": "40 mg/day", "warning": "No adjustment needed"}
+    },
+    "esomeprazole": {
+        "child": {"dose": "10-20 mg once daily", "max": "40 mg/day", "warning": "Over 1 year"},
+        "adult": {"dose": "20-40 mg once daily", "max": "40 mg/day", "warning": "Take 1 hour before meal"},
+        "elderly": {"dose": "20-40 mg once daily", "max": "40 mg/day", "warning": "No adjustment needed"}
+    },
+    "ranitidine": {
+        "child": {"dose": "2-4 mg/kg twice daily", "max": "300 mg/day", "warning": "Divide into 2 doses"},
+        "adult": {"dose": "150 mg twice daily", "max": "300 mg/day", "warning": "Less potent than PPIs"},
+        "elderly": {"dose": "150 mg once-twice daily", "max": "300 mg/day", "warning": "Adjust for renal impairment"}
+    },
+    "domperidone": {
+        "child": {"dose": "0.25 mg/kg 3-4 times daily", "max": "2.4 mg/kg/day", "warning": "Before meals"},
+        "adult": {"dose": "10 mg 3-4 times daily", "max": "30 mg/day", "warning": "Short-term use, cardiac risk"},
+        "elderly": {"dose": "10 mg twice daily", "max": "30 mg/day", "warning": "Avoid if cardiac disease"}
+    },
+    "ondansetron": {
+        "child": {"dose": "0.15 mg/kg/dose", "max": "8 mg/dose", "warning": "Every 8 hours"},
+        "adult": {"dose": "4-8 mg 2-3 times daily", "max": "24 mg/day", "warning": "QT prolongation risk"},
+        "elderly": {"dose": "4-8 mg 2-3 times daily", "max": "24 mg/day", "warning": "Monitor for QT changes"}
+    },
+    "loperamide": {
+        "child": {"dose": "Not recommended under 2", "max": "N/A", "warning": "Consult doctor"},
+        "adult": {"dose": "4 mg initially, then 2 mg after each loose stool", "max": "16 mg/day", "warning": "Short-term use only"},
+        "elderly": {"dose": "2 mg after each loose stool", "max": "8 mg/day", "warning": "Monitor for ileus"}
+    },
+    
+    # PSYCHIATRIC/NEUROLOGICAL
+    "sertraline": {
+        "child": {"dose": "25 mg once daily", "max": "200 mg/day", "warning": "Over 6 years, titrate slowly"},
+        "adult": {"dose": "50-200 mg once daily", "max": "200 mg/day", "warning": "Take morning, titrate over weeks"},
+        "elderly": {"dose": "25-50 mg once daily", "max": "200 mg/day", "warning": "Start low, hyponatremia risk"}
+    },
+    "fluoxetine": {
+        "child": {"dose": "10-20 mg once daily", "max": "60 mg/day", "warning": "Over 8 years"},
+        "adult": {"dose": "20-80 mg once daily", "max": "80 mg/day", "warning": "Long half-life, morning dosing"},
+        "elderly": {"dose": "10-20 mg once daily", "max": "60 mg/day", "warning": "Start low, drug interactions"}
+    },
+    "escitalopram": {
+        "child": {"dose": "5-10 mg once daily", "max": "20 mg/day", "warning": "Over 12 years"},
+        "adult": {"dose": "10-20 mg once daily", "max": "20 mg/day", "warning": "Morning or evening"},
+        "elderly": {"dose": "5-10 mg once daily", "max": "10 mg/day", "warning": "QT prolongation, reduce dose"}
+    },
+    "paroxetine": {
+        "child": {"dose": "Not recommended", "max": "N/A", "warning": "Not approved"},
+        "adult": {"dose": "20-50 mg once daily", "max": "60 mg/day", "warning": "Take morning, withdrawal symptoms"},
+        "elderly": {"dose": "10-20 mg once daily", "max": "40 mg/day", "warning": "Start low, anticholinergic effects"}
+    },
+    "alprazolam": {
+        "child": {"dose": "Not recommended", "max": "N/A", "warning": "Not approved"},
+        "adult": {"dose": "0.25-2 mg 2-3 times daily", "max": "4 mg/day", "warning": "Short-term use, dependence risk"},
+        "elderly": {"dose": "0.25-0.5 mg 2-3 times daily", "max": "2 mg/day", "warning": "Falls and confusion risk"}
+    },
+    "diazepam": {
+        "child": {"dose": "0.12-0.8 mg/kg/day", "max": "10 mg/day", "warning": "Divide into 2-4 doses"},
+        "adult": {"dose": "2-10 mg 2-4 times daily", "max": "40 mg/day", "warning": "Dependence risk, taper slowly"},
+        "elderly": {"dose": "2-5 mg once-twice daily", "max": "15 mg/day", "warning": "High fall risk, avoid if possible"}
+    },
+    "lorazepam": {
+        "child": {"dose": "0.05 mg/kg/dose", "max": "2 mg/dose", "warning": "Every 4-8 hours PRN"},
+        "adult": {"dose": "0.5-2 mg 2-3 times daily", "max": "10 mg/day", "warning": "Short-term use, dependence"},
+        "elderly": {"dose": "0.5-1 mg once-twice daily", "max": "4 mg/day", "warning": "Falls and confusion risk"}
+    },
+    "amitriptyline": {
+        "child": {"dose": "Not recommended under 12", "max": "N/A", "warning": "Consult specialist"},
+        "adult": {"dose": "25-150 mg at bedtime", "max": "300 mg/day", "warning": "Sedating, anticholinergic effects"},
+        "elderly": {"dose": "10-25 mg at bedtime", "max": "100 mg/day", "warning": "Avoid - high anticholinergic burden"}
+    },
+    "olanzapine": {
+        "child": {"dose": "2.5-5 mg once daily", "max": "20 mg/day", "warning": "Over 13 years, titrate slowly"},
+        "adult": {"dose": "5-20 mg once daily", "max": "20 mg/day", "warning": "Weight gain, metabolic syndrome risk"},
+        "elderly": {"dose": "2.5-5 mg once daily", "max": "10 mg/day", "warning": "Dementia patients - increased mortality"}
+    },
+    "risperidone": {
+        "child": {"dose": "0.25-0.5 mg twice daily", "max": "6 mg/day", "warning": "Over 5 years, titrate slowly"},
+        "adult": {"dose": "1-6 mg once-twice daily", "max": "16 mg/day", "warning": "EPS risk, monitor prolactin"},
+        "elderly": {"dose": "0.25-0.5 mg twice daily", "max": "4 mg/day", "warning": "Stroke risk in dementia"}
+    },
+    "quetiapine": {
+        "child": {"dose": "25 mg twice daily", "max": "800 mg/day", "warning": "Over 10 years, titrate"},
+        "adult": {"dose": "25-800 mg/day divided", "max": "800 mg/day", "warning": "Sedation, metabolic effects"},
+        "elderly": {"dose": "25 mg once-twice daily", "max": "300 mg/day", "warning": "Start very low"}
+    },
+    "haloperidol": {
+        "child": {"dose": "0.05-0.15 mg/kg/day", "max": "15 mg/day", "warning": "Divide into 2-3 doses"},
+        "adult": {"dose": "0.5-20 mg/day divided", "max": "100 mg/day", "warning": "High EPS risk, monitor"},
+        "elderly": {"dose": "0.5-2 mg once-twice daily", "max": "5 mg/day", "warning": "Very high fall risk"}
+    },
+    "gabapentin": {
+        "child": {"dose": "10-15 mg/kg/day", "max": "50 mg/kg/day", "warning": "Over 3 years, divide into 3 doses"},
+        "adult": {"dose": "300-1800 mg/day divided", "max": "3600 mg/day", "warning": "Titrate slowly, dizziness common"},
+        "elderly": {"dose": "300-900 mg/day divided", "max": "1800 mg/day", "warning": "Adjust for renal function"}
+    },
+    "pregabalin": {
+        "child": {"dose": "Not established", "max": "N/A", "warning": "Not approved"},
+        "adult": {"dose": "150-600 mg/day divided", "max": "600 mg/day", "warning": "Dizziness, weight gain"},
+        "elderly": {"dose": "75-300 mg/day divided", "max": "450 mg/day", "warning": "Adjust for renal function"}
+    },
+    "donepezil": {
+        "child": {"dose": "Not recommended", "max": "N/A", "warning": "Not approved"},
+        "adult": {"dose": "5-10 mg once daily", "max": "23 mg/day", "warning": "Take at bedtime, GI effects"},
+        "elderly": {"dose": "5-10 mg once daily", "max": "23 mg/day", "warning": "Bradycardia risk, monitor"}
+    },
+    
+    # RESPIRATORY
+    "montelukast": {
+        "child": {"dose": "4-5 mg once daily", "max": "10 mg/day", "warning": "Evening dosing"},
+        "adult": {"dose": "10 mg once daily", "max": "10 mg/day", "warning": "Take in evening"},
+        "elderly": {"dose": "10 mg once daily", "max": "10 mg/day", "warning": "No adjustment needed"}
+    },
+    "salbutamol": {
+        "child": {"dose": "0.1-0.15 mg/kg/dose", "max": "5 mg/dose", "warning": "Inhaled or nebulized PRN"},
+        "adult": {"dose": "100-200 mcg/dose", "max": "800 mcg/day", "warning": "PRN for bronchospasm"},
+        "elderly": {"dose": "100-200 mcg/dose", "max": "800 mcg/day", "warning": "Monitor heart rate"}
+    },
+    "budesonide": {
+        "child": {"dose": "0.25-1 mg twice daily", "max": "2 mg/day", "warning": "Inhaled, rinse mouth after"},
+        "adult": {"dose": "200-800 mcg twice daily", "max": "1600 mcg/day", "warning": "Inhaled corticosteroid, rinse mouth"},
+        "elderly": {"dose": "200-400 mcg twice daily", "max": "800 mcg/day", "warning": "Oral thrush risk"}
+    },
+    "formoterol": {
+        "child": {"dose": "12 mcg twice daily", "max": "24 mcg/day", "warning": "Over 5 years, long-acting"},
+        "adult": {"dose": "12-24 mcg twice daily", "max": "48 mcg/day", "warning": "Not for acute symptoms"},
+        "elderly": {"dose": "12 mcg twice daily", "max": "24 mcg/day", "warning": "Monitor cardiovascular effects"}
+    },
+    "theophylline": {
+        "child": {"dose": "10-20 mg/kg/day", "max": "800 mg/day", "warning": "Divide into 2-3 doses, narrow therapeutic index"},
+        "adult": {"dose": "300-600 mg/day divided", "max": "900 mg/day", "warning": "Monitor blood levels, drug interactions"},
+        "elderly": {"dose": "200-400 mg/day divided", "max": "600 mg/day", "warning": "Reduce dose, toxicity risk"}
+    },
+    "dextromethorphan": {
+        "child": {"dose": "0.5 mg/kg every 6-8 hours", "max": "60 mg/day", "warning": "Over 4 years, cough suppressant"},
+        "adult": {"dose": "10-30 mg every 4-8 hours", "max": "120 mg/day", "warning": "Avoid with MAOIs"},
+        "elderly": {"dose": "10-20 mg every 6-8 hours", "max": "60 mg/day", "warning": "Monitor for interactions"}
+    },
+    "ipratropium": {
+        "child": {"dose": "250 mcg 3-4 times daily", "max": "1000 mcg/day", "warning": "Nebulized"},
+        "adult": {"dose": "2 puffs 4 times daily", "max": "12 puffs/day", "warning": "Inhaled anticholinergic"},
+        "elderly": {"dose": "2 puffs 4 times daily", "max": "12 puffs/day", "warning": "Avoid eye contact"}
+    },
+    
+    # VITAMINS & SUPPLEMENTS
+    "vitamin d3": {
+        "child": {"dose": "400-1000 IU daily", "max": "4000 IU/day", "warning": "Varies by age and deficiency"},
+        "adult": {"dose": "1000-2000 IU daily", "max": "4000 IU/day", "warning": "With fatty meal for absorption"},
+        "elderly": {"dose": "800-2000 IU daily", "max": "4000 IU/day", "warning": "Fall prevention, bone health"}
+    },
+    "vitamin b12": {
+        "child": {"dose": "1-2.5 mcg daily", "max": "50 mcg/day", "warning": "Varies by age"},
+        "adult": {"dose": "2.4 mcg daily", "max": "1000 mcg/day", "warning": "Higher if deficient"},
+        "elderly": {"dose": "25-1000 mcg daily", "max": "2000 mcg/day", "warning": "Malabsorption common"}
+    },
+    "folic acid": {
+        "child": {"dose": "0.1-0.4 mg daily", "max": "1 mg/day", "warning": "Varies by age"},
+        "adult": {"dose": "400-800 mcg daily", "max": "1 mg/day", "warning": "Essential in pregnancy"},
+        "elderly": {"dose": "400 mcg daily", "max": "1 mg/day", "warning": "With B12 if deficient"}
+    },
+    "calcium carbonate": {
+        "child": {"dose": "500-800 mg daily", "max": "2500 mg/day", "warning": "Divide doses, with food"},
+        "adult": {"dose": "500-1000 mg twice daily", "max": "2500 mg/day", "warning": "Take with food, avoid with iron"},
+        "elderly": {"dose": "500-1200 mg daily", "max": "2000 mg/day", "warning": "Constipation common"}
+    },
+    "iron folic acid": {
+        "child": {"dose": "2-3 mg/kg elemental iron", "max": "200 mg/day", "warning": "With vitamin C for absorption"},
+        "adult": {"dose": "60-120 mg elemental iron", "max": "200 mg/day", "warning": "Take on empty stomach, GI upset common"},
+        "elderly": {"dose": "60 mg elemental iron", "max": "150 mg/day", "warning": "Constipation common"}
+    },
+    "multivitamin": {
+        "child": {"dose": "Age-specific formulation", "max": "Per product", "warning": "Follow product guidelines"},
+        "adult": {"dose": "1 tablet daily", "max": "1 tablet/day", "warning": "With meal for absorption"},
+        "elderly": {"dose": "1 tablet daily", "max": "1 tablet/day", "warning": "Check for interactions"}
+    },
+    
+    # ANTIFUNGALS
+    "fluconazole": {
+        "child": {"dose": "3-12 mg/kg/day", "max": "600 mg/day", "warning": "Once daily, hepatotoxicity risk"},
+        "adult": {"dose": "50-400 mg once daily", "max": "800 mg/day", "warning": "Monitor liver function"},
+        "elderly": {"dose": "50-200 mg once daily", "max": "400 mg/day", "warning": "Adjust for renal function"}
+    },
+    "itraconazole": {
+        "child": {"dose": "3-5 mg/kg/day", "max": "400 mg/day", "warning": "With food"},
+        "adult": {"dose": "100-200 mg once-twice daily", "max": "600 mg/day", "warning": "Take with food, monitor liver"},
+        "elderly": {"dose": "100 mg once daily", "max": "400 mg/day", "warning": "Heart failure risk"}
+    },
+    "ketoconazole": {
+        "child": {"dose": "3.3-6.6 mg/kg once daily", "max": "800 mg/day", "warning": "Hepatotoxicity"},
+        "adult": {"dose": "200-400 mg once daily", "max": "800 mg/day", "warning": "Monitor liver, many interactions"},
+        "elderly": {"dose": "200 mg once daily", "max": "400 mg/day", "warning": "Hepatotoxicity risk"}
+    },
+    "clotrimazole": {
+        "child": {"dose": "Apply topically 2-3 times daily", "max": "N/A", "warning": "External use only"},
+        "adult": {"dose": "Apply topically 2-3 times daily", "max": "N/A", "warning": "Complete full course"},
+        "elderly": {"dose": "Apply topically 2-3 times daily", "max": "N/A", "warning": "No special precautions"}
+    },
+    
+    # STEROIDS
+    "prednisolone": {
+        "child": {"dose": "0.5-2 mg/kg/day", "max": "60 mg/day", "warning": "Taper slowly, growth suppression"},
+        "adult": {"dose": "5-60 mg once daily", "max": "80 mg/day", "warning": "Take morning, taper slowly"},
+        "elderly": {"dose": "5-40 mg once daily", "max": "60 mg/day", "warning": "Osteoporosis, diabetes risk"}
+    },
+    "dexamethasone": {
+        "child": {"dose": "0.02-0.3 mg/kg/day", "max": "10 mg/day", "warning": "Divide into 2-4 doses"},
+        "adult": {"dose": "0.5-9 mg/day divided", "max": "20 mg/day", "warning": "Potent, taper slowly"},
+        "elderly": {"dose": "0.5-4 mg/day", "max": "10 mg/day", "warning": "Infection risk, monitor glucose"}
+    },
+    "hydrocortisone": {
+        "child": {"dose": "2.5-10 mg/m2/day", "max": "50 mg/day", "warning": "Divide into 2-3 doses"},
+        "adult": {"dose": "20-240 mg/day divided", "max": "500 mg/day", "warning": "Take with food"},
+        "elderly": {"dose": "10-80 mg/day divided", "max": "240 mg/day", "warning": "Monitor BP and glucose"}
+    },
+    
+    # ANTIVIRALS
+    "acyclovir": {
+        "child": {"dose": "20 mg/kg every 8 hours", "max": "1200 mg/day", "warning": "Adequate hydration"},
+        "adult": {"dose": "200-800 mg 5 times daily", "max": "4000 mg/day", "warning": "Drink plenty of fluids"},
+        "elderly": {"dose": "200-400 mg 5 times daily", "max": "2400 mg/day", "warning": "Adjust for renal function"}
+    },
+    "oseltamivir": {
+        "child": {"dose": "30-75 mg twice daily", "max": "150 mg/day", "warning": "Weight-based, within 48h of symptoms"},
+        "adult": {"dose": "75 mg twice daily", "max": "150 mg/day", "warning": "Start within 48h of flu symptoms"},
+        "elderly": {"dose": "75 mg twice daily", "max": "150 mg/day", "warning": "No adjustment needed"}
+    },
+    "tenofovir": {
+        "child": {"dose": "8 mg/kg once daily", "max": "300 mg/day", "warning": "Over 2 years, specialist use"},
+        "adult": {"dose": "300 mg once daily", "max": "300 mg/day", "warning": "Monitor renal and bone health"},
+        "elderly": {"dose": "300 mg once daily", "max": "300 mg/day", "warning": "Renal monitoring essential"}
+    },
+    "remdesivir": {
+        "child": {"dose": "5 mg/kg loading, then 2.5 mg/kg", "max": "Per protocol", "warning": "Hospital use only, COVID-19"},
+        "adult": {"dose": "200 mg loading, then 100 mg daily", "max": "Per protocol", "warning": "IV only, hospital setting"},
+        "elderly": {"dose": "200 mg loading, then 100 mg daily", "max": "Per protocol", "warning": "Monitor liver function"}
+    },
+    
+    # OTHERS
+    "levothyroxine": {
+        "child": {"dose": "1-5 mcg/kg/day", "max": "Per TSH", "warning": "Age-specific, monitor TSH"},
+        "adult": {"dose": "25-200 mcg once daily", "max": "Per TSH", "warning": "Take on empty stomach, 30 min before food"},
+        "elderly": {"dose": "12.5-50 mcg once daily", "max": "Per TSH", "warning": "Start low, cardiac risk"}
+    },
+    "tamsulosin": {
+        "child": {"dose": "Not recommended", "max": "N/A", "warning": "Not approved"},
+        "adult": {"dose": "0.4 mg once daily", "max": "0.8 mg/day", "warning": "Take 30 min after same meal daily"},
+        "elderly": {"dose": "0.4 mg once daily", "max": "0.8 mg/day", "warning": "Orthostatic hypotension risk"}
+    },
+    "finasteride": {
+        "child": {"dose": "Not applicable", "max": "N/A", "warning": "Adult males only"},
+        "adult": {"dose": "1-5 mg once daily", "max": "5 mg/day", "warning": "Pregnant women must not handle"},
+        "elderly": {"dose": "1-5 mg once daily", "max": "5 mg/day", "warning": "No adjustment needed"}
+    },
+    "sildenafil": {
+        "child": {"dose": "0.5-2 mg/kg 3 times daily", "max": "20 mg 3 times/day", "warning": "Pulmonary hypertension only"},
+        "adult": {"dose": "25-100 mg PRN", "max": "100 mg/day", "warning": "Do not use with nitrates - fatal"},
+        "elderly": {"dose": "25 mg PRN", "max": "100 mg/day", "warning": "Start low, higher side effects"}
+    },
+    "misoprostol": {
+        "child": {"dose": "Not applicable", "max": "N/A", "warning": "Not approved"},
+        "adult": {"dose": "200 mcg 4 times daily with food", "max": "800 mcg/day", "warning": "Contraindicated in pregnancy"},
+        "elderly": {"dose": "200 mcg 2-4 times daily", "max": "800 mcg/day", "warning": "Diarrhea common"}
+    },
+    "tranexamic acid": {
+        "child": {"dose": "10 mg/kg 2-3 times daily", "max": "1500 mg/day", "warning": "With caution"},
+        "adult": {"dose": "1000-1500 mg 2-3 times daily", "max": "4000 mg/day", "warning": "Risk of thrombosis"},
+        "elderly": {"dose": "1000 mg 2-3 times daily", "max": "3000 mg/day", "warning": "Higher clot risk"}
+    },
+    "warfarin": {
+        "child": {"dose": "0.1-0.3 mg/kg once daily", "max": "Per INR", "warning": "Specialist supervision only"},
+        "adult": {"dose": "2-10 mg once daily", "max": "Per INR", "warning": "Regular INR monitoring essential, 2-3 target"},
+        "elderly": {"dose": "1-5 mg once daily", "max": "Per INR", "warning": "Start low, higher bleeding risk"}
+    },
+}
 
-def extract_text_ocr(img: Image.Image) -> str:
-    """Extract text using Tesseract OCR"""
+# ============================================================================
+# ADVANCED OCR FUNCTIONS WITH BETTER PREPROCESSING
+# ============================================================================
+
+def preprocess_image_ultra_advanced(img: Image.Image) -> Image.Image:
+    """Ultra-advanced preprocessing for medical handwriting OCR"""
+    # Convert to numpy array
+    img_np = np.array(img.convert('RGB'))
+    
+    # Convert to grayscale
+    gray = cv2.cvtColor(img_np, cv2.COLOR_RGB2GRAY)
+    
+    # Apply CLAHE (Contrast Limited Adaptive Histogram Equalization)
+    clahe = cv2.createCLAHE(clipLimit=3.0, tileGridSize=(8, 8))
+    enhanced = clahe.apply(gray)
+    
+    # Apply Gaussian blur to reduce noise
+    blurred = cv2.GaussianBlur(enhanced, (5, 5), 0)
+    
+    # Thresholding for better text detection
+    _, thresh = cv2.threshold(blurred, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+    
+    # Morphological operations
+    kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (2, 2))
+    morph = cv2.morphologyEx(thresh, cv2.MORPH_CLOSE, kernel)
+    morph = cv2.morphologyEx(morph, cv2.MORPH_OPEN, kernel)
+    
+    # Convert back to PIL Image
+    result = Image.fromarray(morph)
+    
+    # Resize for better OCR
+    w, h = result.size
+    if w < 1024:
+        new_w = 3000
+        new_h = int(h * (new_w / w))
+        result = result.resize((new_w, new_h), Image.Resampling.LANCZOS)
+    
+    return result
+
+def extract_text_ocr_enhanced(img: Image.Image) -> str:
+    """Extract text using Tesseract OCR with multiple attempts"""
     if not OCR_AVAILABLE:
         return None
     
     try:
-        processed = preprocess_image_advanced(img)
-        custom_config = r'--oem 3 --psm 6 -l eng'
-        text = pytesseract.image_to_string(processed, config=custom_config)
-        return text.strip() if text else None
+        # Method 1: Ultra-advanced preprocessing
+        processed1 = preprocess_image_ultra_advanced(img)
+        config1 = r'--oem 3 --psm 6 -l eng'
+        text1 = pytesseract.image_to_string(processed1, config=config1)
+        
+        if text1.strip():
+            return text1.strip()
+        
+        # Method 2: Fallback with different PSM
+        config2 = r'--oem 3 --psm 11 -l eng'
+        text2 = pytesseract.image_to_string(processed1, config=config2)
+        
+        return text2.strip() if text2.strip() else None
     except Exception as e:
         return None
 
-def find_drugs_flexible(text: str) -> list:
-    """Extract drugs from OCR text with flexible matching"""
+def find_drugs_super_flexible(text: str) -> list:
+    """Extract drugs with ultra-flexible pattern matching"""
     if not text:
         return []
     
@@ -495,16 +949,41 @@ def find_drugs_flexible(text: str) -> list:
         if drug_name in seen:
             continue
         
-        pattern = r'\b' + re.escape(drug_name.lower()) + r'\b'
-        if re.search(pattern, text_lower):
-            dosage_pattern = rf'{re.escape(drug_name.lower())}\s*[:\-]*\s*(\d+(?:\.\d+)?)\s*(mg|ml|mcg|units|gm|g)?'
-            match = re.search(dosage_pattern, text_lower)
-            dosage = f"{match.group(1)} {match.group(2) or 'mg'}" if match else "Not specified"
+        # Try multiple pattern variations
+        patterns = [
+            r'\b' + re.escape(drug_name.lower()) + r'\b',  # Exact word boundary
+            r'\b' + re.escape(drug_name.lower()),  # Start of word
+            re.escape(drug_name.lower()),  # Anywhere
+        ]
+        
+        found_drug = False
+        for pattern in patterns:
+            if re.search(pattern, text_lower):
+                found_drug = True
+                break
+        
+        if found_drug:
+            # Extract dosage - multiple patterns
+            dosage_patterns = [
+                rf'{re.escape(drug_name.lower())}\s*[:\-]*\s*(\d+(?:\.\d+)?)\s*(mg|ml|mcg|units|gm|g|tab|tabs|cap|caps|unit)?',
+                rf'(\d+(?:\.\d+)?)\s*(mg|ml|mcg|units|gm|g|tab|tabs|cap|caps)\s*{re.escape(drug_name.lower())}',
+            ]
             
-            freq_patterns = ['1-0-0', '0-1-0', '0-0-1', '1-1-0', '1-0-1', '0-1-1', '1-1-1', 'od', 'bd', 'tds', 'qid']
+            dosage = "Not specified"
+            for dosage_pattern in dosage_patterns:
+                match = re.search(dosage_pattern, text_lower)
+                if match:
+                    amount = match.group(1)
+                    unit = match.group(2) or "mg"
+                    dosage = f"{amount} {unit}"
+                    break
+            
+            # Extract frequency
+            freq_patterns = ['1-0-0', '0-1-0', '0-0-1', '1-1-0', '1-0-1', '0-1-1', '1-1-1', 
+                           'od', 'hs', 'od', 'bd', 'tds', 'qid', 'stat', 'prn']
             frequency = "As prescribed"
             for freq in freq_patterns:
-                if freq in text_lower:
+                if re.search(r'\b' + freq + r'\b', text_lower):
                     frequency = freq.upper()
                     break
             
@@ -525,7 +1004,7 @@ def find_drugs_flexible(text: str) -> list:
 
 st.set_page_config(page_title="Prescription Analyzer", page_icon="💊", layout="wide")
 st.title("💊 Medical Prescription Analysis System")
-st.markdown("### Complete Handwriting Recognition + 150+ Drug Database + 100+ Interactions")
+st.markdown("### ENHANCED: 150+ Drugs + 100+ Interactions + mg/kg Dosage Guidelines + Advanced OCR")
 st.error("⚠️ **DISCLAIMER**: Educational only - NOT for clinical use. Consult healthcare professionals.")
 
 if 'extracted_drugs' not in st.session_state:
@@ -535,30 +1014,31 @@ if 'ocr_text' not in st.session_state:
 
 st.sidebar.header("🔧 Tools & Status")
 page = st.sidebar.radio("Select Feature", [
-    "📸 Prescription OCR",
+    "📸 Prescription OCR (ENHANCED)",
     "🔍 Interaction Checker",
-    "📏 Dosage Info",
+    "📏 Dosage Info with mg/kg",
     "🏥 Safety Check",
     "ℹ️ About & Help"
 ])
 
 st.sidebar.info(f"""
 **System Status:**
-- OCR Engine: {'✅ Tesseract Enabled' if OCR_AVAILABLE else '⚠️ Pattern Matching Mode'}
+- OCR Engine: {'✅ Tesseract ENHANCED' if OCR_AVAILABLE else '⚠️ Pattern Matching Mode'}
 - Total Medications: {len(DRUGS)}
 - Drug Interactions: {len(INTERACTIONS)} pairs
 - Alternatives Mapped: {len(ALTERNATIVES)}
+- Dosage Guidelines: {len(DOSAGES)} drugs
 
 **Quick Setup:**
-1. pip install streamlit pillow pytesseract
-2. Install Tesseract from github
+1. pip install streamlit pillow pytesseract opencv-python numpy
+2. Tesseract already installed ✅
 3. Run: streamlit run prescription_analyzer.py
 4. Open: http://localhost:8501
 """)
 
 # ====== PAGE 1: PRESCRIPTION OCR ======
-if page == "📸 Prescription OCR":
-    st.header("📸 Handwritten Prescription Analysis")
+if page == "📸 Prescription OCR (ENHANCED)":
+    st.header("📸 Enhanced Handwritten Prescription Analysis with mg/kg Dosage")
     
     col1, col2 = st.columns(2)
     
@@ -569,6 +1049,9 @@ if page == "📸 Prescription OCR":
         
         st.markdown("**Option B: Use Camera**")
         camera = st.camera_input("Capture prescription with camera")
+        
+        st.markdown("**Patient Information:**")
+        age = st.number_input("Patient Age (years)", min_value=0, max_value=120, value=35)
         
         img = None
         if camera:
@@ -584,9 +1067,9 @@ if page == "📸 Prescription OCR":
     with col2:
         st.subheader("Step 2: Analyze & Extract")
         
-        if img and st.button("🔍 Analyze Prescription", type="primary", use_container_width=True):
-            with st.spinner("⏳ Processing image with OCR..."):
-                text = extract_text_ocr(img)
+        if img and st.button("🔍 Analyze Prescription (ENHANCED OCR)", type="primary", use_container_width=True):
+            with st.spinner("⏳ Processing with ENHANCED OCR preprocessing..."):
+                text = extract_text_ocr_enhanced(img)
                 
                 if text:
                     st.session_state.ocr_text = text
@@ -595,22 +1078,35 @@ if page == "📸 Prescription OCR":
                     with st.expander("📄 View Raw OCR Text"):
                         st.text_area("Extracted text:", value=text, height=150, disabled=True)
                     
-                    drugs = find_drugs_flexible(text)
+                    drugs = find_drugs_super_flexible(text)
                     st.session_state.extracted_drugs = drugs
                     
                     if drugs:
                         st.success(f"✅ **Found {len(drugs)} medications**")
                         
-                        st.markdown("### 💊 Detected Medications:")
+                        age_group = "child" if age < 18 else "elderly" if age >= 65 else "adult"
+                        st.info(f"Patient Age Group: **{age_group.upper()}**")
+                        
+                        st.markdown("### 💊 Detected Medications with Dosage Recommendations:")
                         for i, d in enumerate(drugs, 1):
                             with st.container(border=True):
-                                col_a, col_b = st.columns([2, 1])
+                                st.markdown(f"**{i}. {d['name'].upper()}**")
+                                col_a, col_b, col_c = st.columns(3)
                                 with col_a:
-                                    st.markdown(f"**{i}. {d['name'].upper()}**")
-                                    st.caption(f"Generic: {d['generic']} | Class: {d['class']}")
+                                    st.caption(f"Generic: {d['generic']}")
+                                    st.caption(f"Class: {d['class']}")
                                 with col_b:
-                                    st.metric("Dosage", d['dosage'])
-                                    st.caption(f"Freq: {d['frequency']}")
+                                    st.metric("Prescribed Dosage", d['dosage'])
+                                with col_c:
+                                    st.metric("Frequency", d['frequency'])
+                                
+                                # Show age-appropriate dosage recommendations
+                                if d['name'] in DOSAGES:
+                                    dosage_info = DOSAGES[d['name']].get(age_group)
+                                    if dosage_info:
+                                        st.markdown(f"**📏 Recommended Dosage for {age_group.title()}:**")
+                                        st.info(f"**Dose:** {dosage_info['dose']}\n\n**Maximum:** {dosage_info['max']}")
+                                        st.warning(f"⚠️ **Warning:** {dosage_info['warning']}")
                         
                         # Interactions
                         if len(drugs) > 1:
@@ -646,7 +1142,7 @@ if page == "📸 Prescription OCR":
                     else:
                         st.warning("⚠️ No medications found in the image")
                 else:
-                    st.error("❌ OCR failed - possible causes:\n- Image is unclear\n- Tesseract not installed\n- Handwriting is illegible\n\nTry a clearer image with good lighting")
+                    st.error("❌ OCR failed - Tips:\n- Ensure image is clear and well-lit\n- Handwriting should be legible\n- Try different angle/lighting\n- Upload clearer image\n- Image should be at least 300 DPI")
 
 # ====== PAGE 2: INTERACTION CHECKER ======
 elif page == "🔍 Interaction Checker":
@@ -679,7 +1175,6 @@ elif page == "🔍 Interaction Checker":
                     st.error(f"⚠️ **{len(interactions)} INTERACTION(S) FOUND**")
                     for d1, d2, inter in interactions:
                         icon = "🔴" if inter['severity']=="high" else "🟡"
-                        severity_badge = f"<span style='background-color: {'red' if inter['severity']=='high' else 'orange'}; padding: 2px 8px; border-radius: 3px; color: white;'>{inter['severity'].upper()}</span>"
                         st.warning(f"{icon} **{d1.title()} + {d2.title()}**\n\n{inter['effect']}\n\nSeverity: {inter['severity'].upper()}")
                 else:
                     st.success("✅ **No critical interactions detected** for this drug combination")
@@ -701,31 +1196,55 @@ elif page == "🔍 Interaction Checker":
         for cat, count in sorted(categories.items()):
             st.caption(f"• {cat}: {count} drugs")
 
-# ====== PAGE 3: DOSAGE INFO ======
-elif page == "📏 Dosage Info":
-    st.header("Medication Information & Dosage Guide")
+# ====== PAGE 3: DOSAGE INFO WITH MG/KG ======
+elif page == "📏 Dosage Info with mg/kg":
+    st.header("Medication Dosage Guidelines with mg/kg Recommendations")
     
     col1, col2 = st.columns(2)
     
     with col1:
-        st.subheader("Select Drug")
-        drug = st.selectbox("Choose medication:", sorted(DRUGS.keys()))
+        st.subheader("Select Drug & Age")
+        drug = st.selectbox("Choose medication:", sorted(DOSAGES.keys()))
         age = st.number_input("Patient Age:", min_value=0, max_value=120, value=35)
         
-        age_group = "Child (0-17)" if age < 18 else "Elderly (65+)" if age >= 65 else "Adult (18-64)"
+        age_group = "child" if age < 18 else "elderly" if age >= 65 else "adult"
+        st.info(f"**Age Group:** {age_group.title()}")
     
     with col2:
-        st.subheader("Drug Information")
-        st.info(f"""
-**Drug Name:** {drug.upper()}
-**Generic Name:** {DRUGS[drug]['generic']}
-**Drug Class:** {DRUGS[drug]['class']}
-**Age Group:** {age_group}
-""")
+        st.subheader("Dosage Recommendations")
         
+        if drug in DOSAGES:
+            dosage_info = DOSAGES[drug].get(age_group)
+            if dosage_info:
+                st.success(f"### {drug.upper()}")
+                st.markdown(f"""
+**Drug Class:** {DRUGS[drug]['class']}
+**Generic Name:** {DRUGS[drug]['generic']}
+**Age Group:** {age_group.title()}
+
+---
+
+### 📏 Dosage Information
+
+**Recommended Dose:** {dosage_info['dose']}
+
+**Maximum Dose:** {dosage_info['max']}
+
+---
+
+### ⚠️ Warnings & Precautions
+
+{dosage_info['warning']}
+""")
+            else:
+                st.warning("Dosage information not available for this age group")
+        
+        # Show alternatives
         alt = ALTERNATIVES.get(drug.lower())
         if alt:
-            st.success(f"**Alternative Options:** {', '.join([a.title() for a in alt])}")
+            st.markdown("---")
+            st.markdown("### 💡 Alternative Options")
+            st.info(f"{', '.join([a.title() for a in alt])}")
         
         # Check for interactions with common drugs
         st.markdown("---")
@@ -802,120 +1321,3 @@ Recommendation: Consult healthcare provider
             avoid_list = ", ".join(CONDITIONS[cond].get("avoid", [])[:3])
             st.caption(f"• **{cond}**: Avoid {avoid_list}...")
 
-# ====== PAGE 5: ABOUT & HELP ======
-elif page == "ℹ️ About & Help":
-    st.header("About & Help")
-    
-    col1, col2 = st.columns(2)
-    
-    with col1:
-        st.markdown("""
-## 📋 About This Application
-
-This Medical Prescription Analyzer is an **educational tool** designed to:
-
-✅ Extract medications from handwritten prescriptions using OCR
-✅ Check for drug-drug interactions
-✅ Provide alternative medications
-✅ Assess medication safety based on medical history
-
-### Features
-
-- **150+ Medications** across 14 categories
-- **100+ Drug-Drug Interactions** with severity levels
-- **Real Tesseract OCR** for handwriting recognition
-- **Advanced Image Preprocessing** for better accuracy
-- **Medical Safety Checks** against conditions
-- **Mobile-friendly Camera Support**
-
-### Database Coverage
-
-✅ Antibiotics (10)
-✅ NSAIDs/Painkillers (11)
-✅ Antihistamines (6)
-✅ Antidiabetics (7)
-✅ Cardiovascular (14)
-✅ Gastrointestinal (8)
-✅ Psychiatric (15)
-✅ Respiratory (7)
-✅ Vitamins (6)
-✅ Antifungals (4)
-✅ Steroids (3)
-✅ Antivirals (4)
-✅ Advanced Anti-HTN (4)
-✅ Others (7)
-""")
-    
-    with col2:
-        st.markdown("""
-## 🚀 Quick Start
-
-### Installation
-
-```bash
-pip install streamlit pillow pytesseract
-```
-
-### Install Tesseract
-
-**Windows:**
-- Download: github.com/UB-Mannheim/tesseract/wiki
-- Install to: C:\\Program Files\\Tesseract-OCR
-
-**Mac:**
-```bash
-brew install tesseract
-```
-
-**Linux:**
-```bash
-sudo apt-get install tesseract-ocr
-```
-
-### Run Application
-
-```bash
-streamlit run prescription_analyzer.py
-```
-
-Then open: `http://localhost:8501`
-
----
-
-## 🚨 Troubleshooting
-
-**Tesseract not found?**
-→ Reinstall from github.com/UB-Mannheim/tesseract/wiki
-
-**OCR not working?**
-→ Ensure image is clear, well-lit, and legible
-
-**Drug not recognized?**
-→ Check spelling (case-insensitive)
-
-**Streamlit error?**
-→ Run: `pip install --upgrade streamlit`
-
----
-
-## ⚠️ IMPORTANT DISCLAIMER
-
-🚫 **NOT for clinical use**
-🚫 **NOT a replacement for healthcare professionals**
-🚫 **Educational purposes only**
-🚫 **Always consult a doctor**
-
-This tool is for educational demonstration only. 
-Never use for real medical decisions.
-""")
-
-st.sidebar.divider()
-st.sidebar.markdown("""
----
-**Status:** Production Ready
-**Version:** 1.0
-**License:** Educational Use Only
-
-All data from medical literature.
-Not for clinical use.
-""")
